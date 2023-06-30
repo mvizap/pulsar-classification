@@ -1,21 +1,20 @@
-# Use an official Python runtime as the base image
-FROM python:3.9
+# Imagen base de Python con Jupyter Notebook
+FROM jupyter/scipy-notebook
 
-# Set the working directory in the container
+# Establecer el directorio de trabajo en el contenedor
 WORKDIR /app
 
-# Copy the requirements file into the container
+# Copiar los archivos del proyecto al contenedor
+COPY My_notebook.ipynb .
+COPY main.py .
 COPY requirements.txt .
 
-# Install the Python dependencies
+# Instalar las dependencias del proyecto
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the Python script into the container
-COPY main.py .
+# Ejecutar el notebook y generar el modelo y el scaler
+RUN jupyter nbconvert --to python My_notebook.ipynb 
+RUN python My_notebook.py
 
-#Copy the notebook
-COPY My_notebook.ipynb.ipynb .
-CMD ["jupyter", "nbconvert", "--to", "notebook", "--execute", "/home/jovyan/work/my_notebook.ipynb", "--ExecutePreprocessor.timeout=-1"]
-
-# Run the Python script when the conainer launches
-ENTRYPOINT ["python", "main.py"]
+# Comando para ejecutar el script de predicciones
+CMD ["python", "main.py"]

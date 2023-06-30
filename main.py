@@ -1,6 +1,7 @@
 import argparse
 import pickle
 import numpy as np
+import os
 
 # Parsear los argumentos de línea de comandos
 parser = argparse.ArgumentParser()
@@ -14,12 +15,16 @@ parser.add_argument('--EK_DMSNR_Curve', type=float, required=True)
 parser.add_argument('--Skewness_DMSNR_Curve', type=float, required=True)
 args = parser.parse_args()
 
+# Ruta de los archivos model.pkl y scaler.pkl
+model_path = 'model.pkl'
+scaler_path = 'scaler.pkl'
+
 # Cargar el modelo desde el archivo
-with open('model.pkl', 'rb') as f:
+with open(model_path, 'rb') as f:
     model = pickle.load(f)
 
 # Cargar el scaler desde el archivo
-with open('scaler.pkl', 'rb') as f:
+with open(scaler_path, 'rb') as f:
     scaler = pickle.load(f)
 
 # Función para realizar predicciones
