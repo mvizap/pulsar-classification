@@ -10,12 +10,12 @@ COPY requirements.txt .
 # Install the Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the tokenizer and model files into the container
-COPY tokenizer.pkl .
-COPY model.h5 .
-
 # Copy the Python script into the container
 COPY main.py .
 
-# Run the Python script when the container launches
+#Copy the notebook
+COPY My_notebook.ipynb.ipynb .
+CMD ["jupyter", "nbconvert", "--to", "notebook", "--execute", "/home/jovyan/work/my_notebook.ipynb", "--ExecutePreprocessor.timeout=-1"]
+
+# Run the Python script when the conainer launches
 ENTRYPOINT ["python", "main.py"]
