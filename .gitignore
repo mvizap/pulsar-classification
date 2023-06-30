@@ -1,3 +1,13 @@
+#Archivos descartados en tarea
+venv/
+archive/
+*.h5
+*.pkl
+*.zip
+*.json
+*.csv
+
+#gitignore default para un proyecto python
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
